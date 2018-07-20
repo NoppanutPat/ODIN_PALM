@@ -1,5 +1,5 @@
 #include <Servo.h>
-#define servo 9
+#define servo 5
 Servo myservo;
 
 void setup() {
