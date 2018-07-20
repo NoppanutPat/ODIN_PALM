@@ -28,7 +28,7 @@ struct ProjectData {
   float temp;
   float humid;
   
-} project_data = {};
+} project_data = {0,0,0,0,0};
 
 struct ServerData {
   int32_t alarm_status;
@@ -42,7 +42,7 @@ struct ServerData {
   int32_t inside_light_auto_status;
   int32_t door_auto_status;
   
-} server_data = {};
+} server_data = {0,0,0,0,0,0,0,0,0,0};
 
 const char GET_SERVER_DATA = 1;
 const char GET_SERVER_DATA_RESULT = 2;
@@ -138,23 +138,40 @@ void loop() {
           case GET_SERVER_DATA_RESULT: {
             ServerData *data = (ServerData*)buffer;
             //use data to control sensor
-            /*Serial.print("temp status: ");
-            Serial.println(data->temp);
-            Serial.print("light: ");
-            Serial.println(data->light_lux);
-            Serial.print("sound status: ");
-            Serial.println(data->sound);
-            Serial.print("door: ");
-            Serial.println(data->door);*/
-            Serial.print("SW: ");
-            Serial.println(data->SW);
-            if(data->SW == 1) {
-              digitalWrite(LED, HIGH);
-            } else {
-              digitalWrite(LED, LOW);
-            }
-            server_data.SW = data->SW;
+            Serial.print("press_alarm status: ");
+            Serial.println(data->press_alarm);
+
+            Serial.print("on_off_air status: ");
+            Serial.println(data->on_off_air);
+
+            Serial.print("outside_light status: ");
+            Serial.println(data->outside_light);
+
+            Serial.print("inside_light status: ");
+            Serial.println(data->inside_light);
+
+            Serial.print("door status: ");
+            Serial.println(data->door);
+
+            Serial.print("press_alarm_auto_status status: ");
+            Serial.println(data->press_alarm_auto_status);
+
+            Serial.print("on_off_air_auto_status status: ");
+            Serial.println(data->on_off_air_auto_status);
+
+            Serial.print("outside_light_auto_status status: ");
+            Serial.println(data->outside_light_auto_status);
+
+            Serial.print("inside_light_auto_status status: ");
+            Serial.println(data->inside_light_auto_status);
+
+            Serial.print("door_auto_status status: ");
+            Serial.println(data->door_auto_status);
             
+          //write code here//
+
+          //write code here//
+
             send_to_nodemcu(UPDATE_PROJECT_DATA, &project_data, sizeof(ProjectData));
             Serial.println("Send data");
           } break;
